@@ -1,2 +1,2 @@
 # pkginfo
-Tools to get information about R packages
+Tools to get interactively information of R packages
