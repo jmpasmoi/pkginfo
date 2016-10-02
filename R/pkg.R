@@ -5,24 +5,20 @@
 pkginfo <- function(){
 
   pkg_path <- .libPaths()
-
   allpaths <- pkg_stat(pkg_path)$rlib
 
   for(i in 1:length(allpaths)){
 
     m_path <- allpaths[i]
-
     m_dir <- dir(m_path)
 
     for(j in 1:length(m_dir)){
 
       cur_dir <- m_dir[j]
-
       each_dir <- trimws(paste0(paste0(m_path,"/"), file.path(cur_dir)))
-
       size_mb <- pkg_size(each_dir)
 
-      print(c(cur_dir, size_mb))
+      print(c(cur_dir, size_mb)) #Too slow
 
     }
   }
@@ -31,7 +27,6 @@ pkginfo <- function(){
 pkg_size <- function(path){
 
   setwd(dir = path)
-
   total <- round(
              sum(
                   file.info(
@@ -39,9 +34,7 @@ pkg_size <- function(path){
                            )$size
                 ) / 1024 ^ 2,4
            )
-
   invisible(total)
-
 }
 
 pkg_stat <- function(path){
@@ -54,7 +47,7 @@ pkg_stat <- function(path){
     rpath <- rbind(rpath, r)
 
   }
-
+  
   invisible(rpath)
 }
 
