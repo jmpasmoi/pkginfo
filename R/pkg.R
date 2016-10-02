@@ -30,7 +30,7 @@ pkg_size <- function(path){
   total <- round(
              sum(
                   file.info(
-                            list.files( path=path, all.files=TRUE,recursive=TRUE)
+                            list.files( path=".", all.files=TRUE,recursive=TRUE)
                            )$size
                 ) / 1024 ^ 2,4
            )
@@ -47,7 +47,7 @@ pkg_stat <- function(path){
     rpath <- rbind(rpath, r)
 
   }
-  
+
   invisible(rpath)
 }
 
