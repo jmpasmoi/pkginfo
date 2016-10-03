@@ -9,6 +9,7 @@ Description: Interactive way to visualize R packages combining built-in
 License: GPL-3
 URL: https://github.com/jmcimula/pkginfo
 Depends: R (>= 3.2.0)
+Imports: desc
 BugReports: https://github.com/jmcimula/pkginfo/issues
 Encoding: UTF-8
 LazyData: true
