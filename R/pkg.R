@@ -59,6 +59,7 @@ pkginfo <- function(pkgname){
 
   pkg_path <- .libPaths()
   allpaths <- pkg_stat(pkg_path)$rlib
+  np <- data.frame()
   cmp <- FALSE
 
   for(i in 1:length(allpaths)){
@@ -86,7 +87,15 @@ pkginfo <- function(pkgname){
      size_mb <- pkg_size(each_dir)
      dps <- desc::description$new(each_dir)
      cit <-  citation(package=pkgname)[[1]]$title
+     namesp <- readLines(paste0(each_dir,"/","NAMESPACE"), warn = FALSE, skipNul = FALSE)
 
+     grp <- grep("export", namesp)
+     for(i in 1 : length(grp)){
+
+        n <- namesp[grp[i]]
+        npp <- data.frame(pkgfunctions = substr(n,8,nchar(n)-1))
+        np <- rbind(np,npp)
+     }
 
   }else{
     stop(paste0("There is no package called: ",pkgname), call.=FALSE)
@@ -97,9 +106,11 @@ pkginfo <- function(pkgname){
                 version=packageVersion(pkgname),
                 pkgsize=paste0(size_mb,"Mb"),
                 title=cit,
-                maintenair=dps$get_maintainer(),
-                depends=dps$get_deps()
+                maintainer=dps$get_maintainer(),
+                depends=dps$get_deps(),
+                nb_func=nrow(np),
+                lst_func=np
               )
 
-  return(pkg)
+  invisible(pkg)
 }
